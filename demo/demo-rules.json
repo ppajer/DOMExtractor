@@ -1,0 +1,12 @@
+{
+	"title": {
+		"@selector": "//title"
+	},
+	"heading": {
+		"@selector": "//h1"
+	},
+	"linkUrl": {
+		"@selector": "//a[@id='link']",
+		"@attr": "href"
+	}
+}

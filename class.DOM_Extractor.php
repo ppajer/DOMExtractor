@@ -57,7 +57,7 @@ class DOM_Extractor {
 			if (strpos($rules, '{') === false) {
 				$rules = file_get_contents($rules);
 			}
-			$rules = json_decode($rules);
+			$rules = json_decode($rules, true);
 		}
 		$this->rules = $this->verifyRules($rules);
 		return $this;

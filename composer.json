@@ -1,0 +1,9 @@
+{
+	"name": "ppajer/phpdomextractor",
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/ppajer/PHP-DOM-Extractor"
+		}
+	]
+}
