@@ -17,7 +17,7 @@ class DOM_Extractor {
 		}
 	}
 
-	public function parse($context = $this->XPath, $rules = $this->rules) {
+	public function parse($rules = $this->rules, $context = false) {
 		$result = array();
 		foreach ($this->verifyRules($rules) as $key => $rule) {
 
@@ -25,8 +25,13 @@ class DOM_Extractor {
 			if (strpos($key, '@') !== false) {
 				continue;
 			}
+
+			if ($context) {
+				$nodes = $this->XPath->query($rule['@selector'], $context);
+			} else {
+				$nodes = $this->XPath->query($rule['@selector']);
+			}
 			
-			$nodes = $context->query($rule['@selector']);
 			$attr = isset($rule['@attr']) ? $rule['@attr'] : false;
 			$subtree = isset($rule['@each']) ? $rule['@each'] : false;
 
@@ -36,7 +41,7 @@ class DOM_Extractor {
 
 			foreach ($nodes as $node) {
 				if ($subtree) {
-					$result[$key][] = $this->parse($node, $subtree);
+					$result[$key][] = $this->parse($subtree, $node);
 				} else {
 					$result[$key] = $attr ? $node->getAttribute($attr) : $node->nodeValue;
 				}
@@ -47,7 +52,7 @@ class DOM_Extractor {
 
 	private function verifyRules($rules) {
 		if (!is_array($rules) OR empty($rules)) {
-			throw new Exception("DOMParser::rules must be a non-empty Array", 1);
+			throw new Exception("DOM_Extractor::rules must be a non-empty Array", 1);
 		}
 		return $rules;
 	}
