@@ -55,7 +55,7 @@ array(
 
 #### Lists & nested data
 
-If you need to parse multiple values for a single key, or 
+If you need to parse multiple values for a single key, or look for nested data, you can use the `@each` instruction, and nest as many levels of instructions as your memory limit allows:
 
 ```
 array(
@@ -68,25 +68,45 @@ array(
 			'listItemLink' => array(
 					'@selector' => '//a',
 					'@attr' => 'href'
+			),
+			'listItemImages' => array(
+					'@selector' => '//div[@class="carousel-item"]',
+					'@each' => array(
+						'src' => array(
+							'@selector' => '//img',
+							'@attr' => 'src'
+						)
+					)
 			)
 		)
 	)
 )
 ```
 
-This will return an array where `exampleKey` is an array containing arrays of data about the individual items in the list: in this example, the text content of each `h3` tag and the `href` attribute of each `a` element.
+This will return an array where `exampleKey` is an array containing arrays of data about the individual items in the list: in this example, the text content of each `h3` tag, the `href` attribute of each `a` element, and the `src` attribute of every `img` element.
 
 ```
 array(
 	'exampleKey' => array(
 		array(
 			'listItemTitle' => 'Some title',
-			'listItemLink' => 'https://...'
+			'listItemLink' => 'https://...',
+			'listItemImages' => array(
+				array('src' => 'https://...'),
+				array('src' => 'https://...'),
+				...
+			)
 		),
 		array(
 			'listItemTitle' => 'Some other title',
-			'listItemLink' => 'https://...'
-		)
+			'listItemLink' => 'https://...',
+			'listItemImages' => array(
+				array('src' => 'https://...'),
+				array('src' => 'https://...'),
+				...
+			)
+		),
+		...
 	)
 )
 ```

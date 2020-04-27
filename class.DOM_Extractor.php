@@ -20,6 +20,11 @@ class DOM_Extractor {
 	public function parse($context = $this->XPath, $rules = $this->rules) {
 		$result = array();
 		foreach ($this->verifyRules($rules) as $key => $rule) {
+
+			// Don't loop over instructions as data keys
+			if (strpos($key, '@') !== false) {
+				continue;
+			}
 			
 			$nodes = $context->query($rule['@selector']);
 			$attr = isset($rule['@attr']) ? $rule['@attr'] : false;
