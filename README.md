@@ -12,9 +12,9 @@ Simply download the repo and `include` the class in your project.
 
 Rules are simple PHP arrays which denote where the extractor must look for their value. They consist of a `key` to store the output in, and an XPath `selector` to match the element required. By default the element's text value will be returned, unless you specify an attribute to return instead. All instruction keys for the extractor are prefixed with a `@` and will be ignored in the output.
 
-#### Basic
+#### Basic query & attributes
 
-The most basic rule could be written as:
+The package uses XPath selector syntax for getting values from document nodes, including text and attribute nodes. The most basic rule could be written as:
 
 ```
 array(
@@ -22,32 +22,25 @@ array(
 		'@selector' => '//title'
 	)
 )
-```
 
-This will return an array where `exampleKey` is set to the value of the document `<title>` tag's text value:
+// Will return:
 
-```
 array(
 	'exampleKey' => 'Example Title'
 )
 ```
 
-#### Attributes
-
-If the data you're looking for is inside an element attribute, specify it in the rule:
+If the data you're looking for is inside an element attribute, specify it in the selector as per XPath syntax:
 
 ```
 array(
 	'exampleKey' => array(
-		'@selector' => '//h1',
-		'@attr' => 'class'
+		'@selector' => '//h1/@class'
 	)
 )
-```
 
-This will return an array where `exampleKey` contains the value of the document `<h1>` tag's `class` attribute:
+// Will return: 
 
-```
 array(
 	'exampleKey' => 'h1 green-text site-heading'
 )
@@ -66,15 +59,13 @@ array(
 					'@selector' => '//h3'
 			),
 			'listItemLink' => array(
-					'@selector' => '//a',
-					'@attr' => 'href'
+					'@selector' => '//a/@href'
 			),
 			'listItemImages' => array(
 					'@selector' => '//div[@class="carousel-item"]',
 					'@each' => array(
 						'src' => array(
-							'@selector' => '//img',
-							'@attr' => 'src'
+							'@selector' => '//img/@src'
 						)
 					)
 			)

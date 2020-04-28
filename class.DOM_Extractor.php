@@ -17,8 +17,11 @@ class DOM_Extractor {
 		}
 	}
 
-	public function parse($rules = $this->rules, $context = false) {
+	public function parse($rules = null, $context = false) {
 		$result = array();
+		if (is_null($rules)) {
+			$rules = $this->rules;
+		}
 		foreach ($this->verifyRules($rules) as $key => $rule) {
 
 			// Don't loop over instructions as data keys
@@ -31,23 +34,20 @@ class DOM_Extractor {
 			} else {
 				$nodes = $this->XPath->query($rule['@selector']);
 			}
-			
-			$attr = isset($rule['@attr']) ? $rule['@attr'] : false;
-			$subtree = isset($rule['@each']) ? $rule['@each'] : false;
 
-			if ($subtree) {
+			if (isset($rule['@each'])) {
 				$result[$key] = array();
 			}
 
 			foreach ($nodes as $node) {
-				if ($subtree) {
-					$result[$key][] = $this->parse($subtree, $node);
+				if (isset($rule['@each'])) {
+					$result[$key][] = $this->parse($rule['@each'], $node);
 				} else {
-					$result[$key] = $attr ? $node->getAttribute($attr) : $node->nodeValue;
+					$result[$key] = $node->nodeValue;
 				}
 			}
-			return $result;
 		}
+		return $result;
 	}
 
 	private function verifyRules($rules) {
