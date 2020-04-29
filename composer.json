@@ -16,5 +16,8 @@
 			"type": "vcs",
 			"url": "https://github.com/ppajer/PHP-DOM-Extractor"
 		}
-	]
+	],
+    "require": {
+        "ivopetkov/html5-dom-document-php": "2.2.*"
+    }
 }

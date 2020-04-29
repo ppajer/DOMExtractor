@@ -4,11 +4,10 @@ class DOM_Extractor {
 
 	private $html;
 	private $DOM;
-	private $XPath;
 	private $rules;
 
 	public function __construct($rules = null, $html = null) {
-		$this->DOM = new DOMDocument;
+		$this->DOM = new IvoPetkov\HTML5DOMDocument();
 		if ($rules) {
 			$this->setRules($rules);
 		}
@@ -30,7 +29,6 @@ class DOM_Extractor {
 
 	public function load($html) {
 		$this->DOM->loadHTML($html);
-		$this->XPath = new DOMXpath($this->DOM);
 		return $this;
 	}
 
@@ -46,28 +44,38 @@ class DOM_Extractor {
 				continue;
 			}
 
-			$nodes = $this->getNodes($rule['@selector'], $context);
-			$result[$key] = $this->processNodes($nodes, $rule);
+			// Attribute lookup
+			if (strpos($rule['@selector'], '@') !== false) {
+				$rule['@selector'] = explode('@', $rule['@selector']);
+				$selector = $rule['@selector'][0];
+				$attribute = $rule['@selector'][1];
+			} else {
+				$selector = $rule['@selector'];
+				$attribute = false;
+			}
+
+			$nodes = $this->getNodes($selector, $context);
+			$result[$key] = $this->processNodes($nodes, $rule, $attribute);
 			
 		}
 		return $result;
 	}
 
 	private function getNodes($selector, $context = false) {
-		if ($context) {
-			return $this->XPath->query($selector, $context);
+		if (!$context) {
+			$context = $this->DOM;
 		}
-		return $this->XPath->query($selector);
+		return $context->querySelectorAll($selector);
 	}
 
-	private function processNodes($nodes, $rule) {
+	private function processNodes($nodes, $rule, $attr = false) {
 		$result = array();
 
 		foreach ($nodes as $node) {
 			if (isset($rule['@each'])) {
 				$result[] = $this->parse($rule['@each'], $node);
 			} else {
-				$result[] = $node->nodeValue;
+				$result[] = $attr ? $node->getAttributeNode($attr)->nodeValue : $node->nodeValue;
 			}
 		}
 

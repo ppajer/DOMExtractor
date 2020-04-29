@@ -6,20 +6,20 @@ A PHP library for extracting data from a HTML or XML DOM document into any user-
 
 ### Install
 
-Simply download the repo and `include` the class in your project.
+Download the repo and install via Composer, or manually download and `include` the class in your project. Note: this package requires `[ivopetkov/html5-dom-document-php](https://github.com/ivopetkov/html5-dom-document-php)` to process HTML5 documents. If you're installing manually, you will need to manage this dependency yourself.
 
 ### Defining extraction rules
 
-Rules are simple PHP arrays which denote where the extractor must look for their value. They consist of a `key` to store the output in, and an XPath `selector` to match the element required. By default the element's text value will be returned, unless you specify an attribute to return instead. All instruction keys for the extractor are prefixed with a `@` and will be ignored in the output.
+Rules are simple PHP arrays which denote where the extractor must look for their value. They consist of a `key` to store the output in, and a CSS `selector` to match the element required. By default the element's text value will be returned, unless you specify an attribute to return instead. All instruction keys for the extractor are prefixed with a `@` and will be ignored in the output.
 
 #### Basic query & attributes
 
-The package uses XPath selector syntax for getting values from document nodes, including text and attribute nodes. The most basic rule could be written as:
+The package uses CSS selector syntax for getting values from document nodes, including text and attribute nodes. The most basic rule could be written as:
 
 ```
 array(
 	'exampleKey' => array(
-		'@selector' => '//title'
+		'@selector' => 'title'
 	)
 )
 
@@ -30,12 +30,12 @@ array(
 )
 ```
 
-If the data you're looking for is inside an element attribute, specify it in the selector as per XPath syntax:
+If the data you're looking for is inside an element attribute, specify it in the selector after a `@` sign.
 
 ```
 array(
 	'exampleKey' => array(
-		'@selector' => '//h1/@class'
+		'@selector' => 'h1@class'
 	)
 )
 
@@ -53,19 +53,19 @@ If you need to parse multiple values for a single key, or look for nested data, 
 ```
 array(
 	'exampleKey' => array(
-		'@selector' => '//div[@class="some-list-item"]',
+		'@selector' => '.some-list-item',
 		'@each' => array(
 			'listItemTitle' => array(
-					'@selector' => './/h3'
+					'@selector' => 'h3'
 			),
 			'listItemLink' => array(
-					'@selector' => './/a/@href'
+					'@selector' => 'a@href'
 			),
 			'listItemImages' => array(
-					'@selector' => './/div[@class="carousel-item"]',
+					'@selector' => '.carousel-item',
 					'@each' => array(
 						'src' => array(
-							'@selector' => './/img/@src'
+							'@selector' => 'img@src'
 						)
 					)
 			)

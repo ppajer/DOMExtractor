@@ -1,18 +1,18 @@
 {
 	"title": {
-		"@selector": "//title"
+		"@selector": "title"
 	},
 	"heading": {
-		"@selector": "//h1"
+		"@selector": "h1"
 	},
 	"linkUrl": {
-		"@selector": "//a[@id='link']/@href"
+		"@selector": "#link@href"
 	},
 	"items": {
-		"@selector": "//div[@class='item']",
+		"@selector": ".item",
 		"@each": {
 			"text": {
-				"@selector": ".//p"
+				"@selector": "p"
 			}
 		}
 	}
