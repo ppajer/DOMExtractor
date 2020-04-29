@@ -12,7 +12,7 @@
 		"@selector": "//div[@class='item']",
 		"@each": {
 			"text": {
-				"@selector": "//p"
+				"@selector": ".//p"
 			}
 		}
 	}

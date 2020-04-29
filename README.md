@@ -56,16 +56,16 @@ array(
 		'@selector' => '//div[@class="some-list-item"]',
 		'@each' => array(
 			'listItemTitle' => array(
-					'@selector' => '//h3'
+					'@selector' => './/h3'
 			),
 			'listItemLink' => array(
-					'@selector' => '//a/@href'
+					'@selector' => './/a/@href'
 			),
 			'listItemImages' => array(
-					'@selector' => '//div[@class="carousel-item"]',
+					'@selector' => './/div[@class="carousel-item"]',
 					'@each' => array(
 						'src' => array(
-							'@selector' => '//img/@src'
+							'@selector' => './/img/@src'
 						)
 					)
 			)
