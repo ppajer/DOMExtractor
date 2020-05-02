@@ -1,12 +1,12 @@
 # PHP-DOM-Extractor
 
-A PHP library for extracting data from a HTML or XML DOM document into any user-defined data structure, based on user-defined extraction rules. 
+A PHP library for extracting data from a HTML DOM document into any user-defined data structure, based on custom extraction rules. 
 
 ## Usage
 
 ### Install
 
-Download the repo and install via Composer, or manually download and `include` the class in your project. Note: this package requires `[ivopetkov/html5-dom-document-php](https://github.com/ivopetkov/html5-dom-document-php)` to process HTML5 documents. If you're installing manually, you will need to manage this dependency yourself.
+Download the repo and install via Composer, or manually download and `include` the class in your project. Note: this package requires [ivopetkov/html5-dom-document-php](https://github.com/ivopetkov/html5-dom-document-php) to process HTML5 documents. If you're installing manually, you will need to manage this dependency yourself.
 
 ### Defining extraction rules
 
@@ -107,7 +107,6 @@ array(
 Once your rules are ready, you can pass them either to the instance by calling `setRules`, or the constructor as first argument. For convenience, the extractor can also take its instructions as either a JSON string or from an external JSON file as a path.
 
 ```
-
 $rules = /* array or JSON string or file path */;
 
 // Constructor 
@@ -118,13 +117,11 @@ $extractor = new DOM_Extractor();
 $extractor->setRules($rules);
 
 ```
-
 ### Loading the document
 
 Once everything is set, you are ready to load the document to parse and start extraction. As with passing the rules, here too you have the option of using the constructor's second argument or the dedicated `load` method.
 
 ```
-
 $html = file_get_contents('https://...');
 
 // Constructor 
@@ -133,13 +130,11 @@ $extractor = new DOM_Extractor($rules, $html);
 // OR Instance
 $extractor = new DOM_Extractor();
 $extractor->load($html);
-
 ```
 
 ### Complete example
 
 ```
-
 $rules = 'some/path/to/rules.json';
 $html = file_get_contents('https:/...');
 
@@ -156,5 +151,4 @@ $data = $extractor->parse();
 // Also supports method chaining:
 $extractor = new DOM_Extractor
 $data = $extractor->setRules($rules)->load($html)->parse();
-
 ˙``
