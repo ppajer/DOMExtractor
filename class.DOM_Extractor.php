@@ -75,7 +75,7 @@ class DOM_Extractor {
 			if (isset($rule['@each'])) {
 				$result[] = $this->parse($rule['@each'], $node);
 			} else {
-				$result[] = $attr ? $node->getAttributeNode($attr)->nodeValue : $node->nodeValue;
+				$result[] = $attr ? $node->getAttributeNode($attr)->nodeValue : $node->innerHTML;
 			}
 		}
 
