@@ -2,6 +2,8 @@
 
 namespace ppajer;
 
+use \IvoPetkov\HTML5DOMDocument;
+
 class DOM_Extractor {
 
 	private $html;
@@ -9,7 +11,7 @@ class DOM_Extractor {
 	private $rules;
 
 	public function __construct($rules = null, $html = null) {
-		$this->DOM = new IvoPetkov\HTML5DOMDocument();
+		$this->DOM = new HTML5DOMDocument();
 		if ($rules) {
 			$this->setRules($rules);
 		}
