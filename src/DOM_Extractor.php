@@ -1,5 +1,7 @@
 <?php
 
+namespace ppajer;
+
 class DOM_Extractor {
 
 	private $html;
@@ -72,15 +74,19 @@ class DOM_Extractor {
 		$result = array();
 
 		foreach ($nodes as $node) {
-			if (isset($rule['@each'])) {
-				$result[] = $this->parse($rule['@each'], $node);
-			} else {
-				$result[] = $attr ? $node->getAttributeNode($attr)->nodeValue : $node->innerHTML;
-			}
+			$result[] = $this->processNode($node, $rule, $attr);
 		}
 
 		// Return string if single value
 		return ((count($result) != 0) AND (count($result) > 1)) ? $result : $result[0];
+	}
+
+	private function processNode($node, $rule, $attr = false) {
+		if (isset($rule['@each'])) {
+			return $this->parse($rule['@each'], $node);
+		} else {
+			return $attr ? $node->getAttributeNode($attr)->nodeValue : $node->innerHTML;
+		}
 	}
 
 	private function verifyRules($rules) {

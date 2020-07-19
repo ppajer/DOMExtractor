@@ -1,8 +1,8 @@
 {
-	"name": "ppajer/phpdomextractor",
+	"name": "ppajer/domextractor",
 	"description": "Easily extract data from HTML and XML DOM documents. Web scraping made less messy",
     "keywords": ["DOM", "scrape", "scraping", "parsing", "extract"],
-    "homepage": "https://github.com/ppajer/PHP-DOM-Extractor",
+    "homepage": "https://github.com/ppajer/DOMExtractor",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,10 +11,15 @@
             "email": "peter.p.pajer@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "ppajer\\":"src/"
+        }
+    },
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/ppajer/PHP-DOM-Extractor"
+			"url": "https://github.com/ppajer/DOMExtractor"
 		}
 	],
     "require": {
