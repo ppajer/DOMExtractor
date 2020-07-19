@@ -80,7 +80,7 @@ class DOM_Extractor {
 		}
 
 		// Return string if single value
-		return ((count($result) != 0) AND (count($result) > 1)) ? $result : $result[0];
+		return (count($result) === 1) ? $result : $result[0];
 	}
 
 	private function processNode($node, $rule, $attr = false) {
