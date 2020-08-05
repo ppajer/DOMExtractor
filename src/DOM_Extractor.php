@@ -32,7 +32,7 @@ class DOM_Extractor {
 	}
 
 	public function load($html) {
-		$this->DOM->loadHTML($html);
+		$this->DOM->loadHTML($html, HTML5DOMDocument::ALLOW_DUPLICATE_IDS);
 		return $this;
 	}
 
