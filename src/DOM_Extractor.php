@@ -79,8 +79,7 @@ class DOM_Extractor {
 			$result[] = $this->processNode($node, $rule, $attr);
 		}
 
-		// Return string if single value
-		return (count($result) === 1) ? $result : $result[0];
+		return $result;
 	}
 
 	private function processNode($node, $rule, $attr = false) {
